@@ -1,0 +1,438 @@
+/* ── Royal Blood Bank · Obsidian Elite · Polished ─────────────────────────── */
+:root {
+  --bg-1:        #101118;
+  --bg-2:        #151722;
+  --bg-3:        #191b26;
+
+  --card-bg:     rgba(19, 20, 28, 0.92);
+
+  --text:        #f7f6fb;
+  --text-muted:  #a0a4b7;   /* slightly lighter for readability */
+  --text-dim:    #3f4252;
+
+  /* Blood reds */
+  --blood:       #b3283e;
+  --blood-soft:  #8f2133;
+  --blood-light: #e85b72;
+
+  --blood-glow:  rgba(179, 40, 62, 0.24);
+  --blood-dim:   rgba(179, 40, 62, 0.12);
+
+  /* Gold accent – used sparingly */
+  --gold:        #c9a973;
+  --gold-soft:   #b79255;
+
+  --green:       #4fbf7a;
+  --green-dim:   rgba(79, 191, 122, 0.15);
+
+  --border:        rgba(255, 255, 255, 0.05);
+  --border-strong: rgba(179, 40, 62, 0.32);
+
+  --radius-sm:   6px;
+  --radius-md:   10px;
+  --radius-lg:   16px;
+
+  --font-ui:     system-ui, -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+  --font-mono:   "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --transition:  0.22s ease-out;
+}
+
+/* Reset */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+
+/* ── Background Shell ──────────────────────────────────────────────────────── */
+.royal-bg {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(179, 40, 62, 0.18), transparent 55%),
+    radial-gradient(circle at bottom right, rgba(18, 20, 32, 0.9), #05060a 80%);
+  color: var(--text);
+  font-family: var(--font-ui);
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Soft ambient orb */
+.royal-bg::after {
+  content: "";
+  position: fixed;
+  width: 620px;
+  height: 620px;
+  right: -240px;
+  top: -180px;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(179, 40, 62, 0.16), transparent 60%);
+  opacity: 0.7;
+  z-index: 0;
+}
+
+/* ── Hero / Header ────────────────────────────────────────────────────────── */
+.blood-hero {
+  position: relative;
+  padding: 44px 28px 32px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  z-index: 1;
+  background:
+    linear-gradient(135deg, rgba(179, 40, 62, 0.25), rgba(10, 11, 18, 0.95) 40%, rgba(10, 11, 18, 1) 100%);
+  background-size: 180% 180%;
+  animation: hero-shift 18s ease-in-out infinite;
+}
+
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em; /* slightly reduced */
+  text-transform: uppercase;
+  color: var(--blood-light);
+  opacity: 0.8;
+  margin-bottom: 10px;
+}
+
+/* Gradient title */
+.hero-title {
+  font-size: clamp(1.9rem, 4vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  background: linear-gradient(120deg, #ffffff, #f7f6fb 45%, var(--blood-light) 85%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 6px;
+}
+
+.hero-sub {
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  letter-spacing: 0.09em; /* reduced for readability */
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ── Main Content ─────────────────────────────────────────────────────────── */
+.app-content {
+  position: relative;
+  z-index: 1;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 32px 22px 80px;
+}
+
+/* ── Controls Row ─────────────────────────────────────────────────────────── */
+.controls-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.select-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.09em; /* slightly tighter */
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.filter-dropdown {
+  min-width: 210px;
+  background: #171925;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  padding: 10px 34px 10px 12px;
+  font-size: 0.88rem;
+  color: var(--text);
+  font-family: var(--font-ui);
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+  cursor: pointer;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 12 12'%3E%3Cpath fill='%23a0a4b7' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  transition:
+    border-color var(--transition),
+    box-shadow var(--transition),
+    background-color var(--transition),
+    transform var(--transition);
+}
+
+.filter-dropdown:focus {
+  border-color: var(--blood-light);
+  box-shadow: 0 0 0 3px var(--blood-glow);
+  background-color: #1c1e2b;
+}
+
+/* Counter */
+.counter-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.counter-badge {
+  padding: 5px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--blood-dim);
+  background: rgba(179, 40, 62, 0.18);
+  color: #f4bcc5;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.counter-sub {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+}
+
+/* ── Donor Grid ───────────────────────────────────────────────────────────── */
+.donor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 22px; /* more breathing room */
+}
+
+/* ── Donor Card ───────────────────────────────────────────────────────────── */
+.blood-card {
+  border-radius: var(--radius-lg);
+  padding: 18px 18px 18px; /* a bit more bottom padding */
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background:
+    linear-gradient(to bottom, rgba(32, 34, 48, 0.96), rgba(15, 16, 24, 0.96));
+  backdrop-filter: blur(6px); /* glassmorphism touch */
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.65);
+  transition:
+    border-color var(--transition),
+    transform var(--transition),
+    box-shadow var(--transition),
+    background-color var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+/* top hairline with gold hint */
+.blood-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(179, 40, 62, 0.65),
+    rgba(201, 169, 115, 0.55),
+    transparent
+  );
+  opacity: 0.75;
+}
+
+.blood-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-strong);
+  box-shadow:
+    0 18px 46px rgba(0, 0, 0, 0.78),
+    0 0 0 1px var(--blood-dim),
+    0 0 32px var(--blood-glow);
+  background-color: #1f2232;
+}
+
+.blood-card.unavailable { opacity: 0.52; }
+
+/* Badge */
+.blood-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 11px;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--green);
+  background: var(--green-dim);
+  border: 1px solid rgba(79, 191, 122, 0.3);
+  position: relative;
+}
+
+/* subtle pulse */
+.blood-badge::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: inherit;
+  border: 1px solid rgba(79, 191, 122, 0.28);
+  opacity: 0;
+  pointer-events: none;
+  animation: badge-pulse 4s ease-out infinite;
+}
+
+.badge-busy {
+  color: var(--text-muted);
+  background: rgba(143, 33, 51, 0.16);
+  border-color: rgba(143, 33, 51, 0.35);
+}
+
+.donor-name {
+  font-size: 1.02rem;       /* slightly larger */
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* Blood group centerpiece */
+.blood-group-display {
+  font-family: var(--font-mono);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--blood-light);
+  letter-spacing: 0.08em;
+  text-shadow:
+    0 0 12px rgba(179, 40, 62, 0.45),
+    0 0 2px rgba(0, 0, 0, 0.6);
+}
+
+/* Meta */
+.donor-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* ── CTA Button ───────────────────────────────────────────────────────────── */
+.blood-btn {
+  margin-top: auto;
+  align-self: flex-start;
+  padding: 9px 18px;
+  border-radius: var(--radius-md);
+  font-size: 0.84rem;
+  font-weight: 600;
+  font-family: var(--font-ui);
+  border: 1px solid var(--border-strong);
+  background: linear-gradient(135deg, rgba(179, 40, 62, 0.95), rgba(143, 33, 51, 0.95));
+  color: #fff9fb;
+  cursor: pointer;
+  transition:
+    transform var(--transition),
+    box-shadow var(--transition),
+    background var(--transition),
+    border-color var(--transition);
+}
+
+.blood-btn:hover:not(:disabled) {
+  transform: translateY(-1px) scale(1.02); /* tactile feel */
+  box-shadow:
+    0 12px 30px var(--blood-glow),
+    0 0 0 1px rgba(233, 145, 164, 0.6);
+  background: linear-gradient(135deg, #cf3150, #a72038);
+}
+
+.blood-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Sent state – warm gold */
+.request-sent {
+  background: linear-gradient(135deg, rgba(201, 169, 115, 0.98), rgba(185, 146, 85, 0.95)) !important;
+  color: #151722 !important;
+  border-color: rgba(201, 169, 115, 0.95) !important;
+}
+
+/* ── Loading / Empty / Error ──────────────────────────────────────────────── */
+.spinner-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 64px 18px;
+}
+
+.loading-spinner {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2px solid rgba(201, 169, 115, 0.25); /* outer gold */
+  border-top-color: var(--blood-light);        /* inner blood */
+  animation: spin 0.9s linear infinite;
+}
+
+.spinner-text {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.empty-state,
+.error-state {
+  text-align: center;
+  padding: 46px 20px;
+  border-radius: var(--radius-lg);
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  background: rgba(16, 17, 24, 0.9);
+}
+
+.empty-state strong {
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.error-state {
+  color: #f09aa9;
+  border-color: rgba(179, 40, 62, 0.4);
+}
+
+/* ── Focus & Animations ───────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--blood-light);
+  outline-offset: 3px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes hero-shift {
+  0%, 100% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+}
+
+@keyframes badge-pulse {
+  0%, 100% { opacity: 0; transform: scale(1); }
+  40%      { opacity: 0.6; transform: scale(1.05); }
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .blood-hero { padding: 32px 18px 24px; }
+  .app-content { padding: 24px 14px 56px; }
+  .controls-row { flex-direction: column; align-items: flex-start; }
+  .counter-wrap { align-items: flex-start; }
+  .filter-dropdown { width: 100%; min-width: 0; }
+  .donor-grid { grid-template-columns: 1fr; }
+}
